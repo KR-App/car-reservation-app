@@ -166,30 +166,20 @@ if submitted:
 
 # --- 表示用フォーマット関数 ---
 def format_row(row):
-    start_dt = datetime.strptime(row["start_time"], "%H:%M")
-    end_dt = datetime.strptime(row["end_time"], "%H:%M")
-
-    # --- 終了日を正しく判定 ---
+    # 開始・終了の datetime
     start_full = datetime.strptime(f"{row['date']} {row['start_time']}", "%Y-%m-%d %H:%M")
     end_full = datetime.strptime(f"{row['date']} {row['end_time']}", "%Y-%m-%d %H:%M")
-    if end_full <= start_full:  # 24時間など翌日になる場合
+    if end_full <= start_full:  # 翌日終了の場合
         end_full += timedelta(days=1)
 
-    end_date_str = end_full.strftime("%Y-%m-%d")
-    end_time_str = end_full.strftime("%H:%M")
-
-    # --- 利用時間計算 ---
+    # 利用時間計算
     use_minutes = int((end_full - start_full).total_seconds() // 60)
     use_str = f"{use_minutes // 60}時間{use_minutes % 60}分"
 
-    return (
-        f"{row['date']}-"
-        f"{row['name']}-"
-        f"{row['start_time']}-"
-        f"{end_date_str}-"
-        f"{end_time_str}-"
-        f"{use_str}"
-    )
+    # 表示形式: 開始日 利用時間 開始時刻~終了日終了時刻(〇時間〇分)
+    return f"{row['date']}  {row['start_time']}~{end_full.strftime('%Y-%m-%d %H:%M')}　利用時間({use_str})"
+
+
 
 
 # --- 予約一覧 ---
