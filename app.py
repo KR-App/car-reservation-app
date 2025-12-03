@@ -177,7 +177,7 @@ def format_row(row):
     use_str = f"{use_minutes // 60}時間{use_minutes % 60}分"
 
     # 表示形式: 開始日 利用時間 開始時刻~終了日終了時刻(〇時間〇分)
-    return f"利用日：{row['date']}  {row['start_time']}~{end_full.strftime('%Y-%m-%d %H:%M')}　利用時間({use_str})"
+    return f"利用者{row['name']} 利用日：{row['date']}  {row['start_time']}~{end_full.strftime('%Y-%m-%d %H:%M')}　利用時間({use_str})"
 
 
 
