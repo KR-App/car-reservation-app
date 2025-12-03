@@ -53,7 +53,7 @@ st.header("🚗 車予約フォーム")
 with st.form("reserve_form", clear_on_submit=True):
     name = st.text_input("名前")
     reserve_date = st.date_input("使用日", min_value=date.today(), value=date.today())
-    car = st.selectbox("車種", ["普通車"])
+    car = st.selectbox("車種", ["VOXY"])
 
     # 別日なら前回終了時刻リセット
     if st.session_state.last_end_date != reserve_date:
@@ -177,7 +177,7 @@ def format_row(row):
     use_str = f"{use_minutes // 60}時間{use_minutes % 60}分"
 
     # 表示形式: 開始日 利用時間 開始時刻~終了日終了時刻(〇時間〇分)
-    return f"{row['date']}  {row['start_time']}~{end_full.strftime('%Y-%m-%d %H:%M')}　利用時間({use_str})"
+    return f"利用日：{row['date']}  {row['start_time']}~{end_full.strftime('%Y-%m-%d %H:%M')}　利用時間({use_str})"
 
 
 
